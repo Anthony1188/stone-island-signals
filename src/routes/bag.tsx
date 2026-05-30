@@ -2,63 +2,77 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/bag")({
+  component: BagPage,
   head: () => ({
     meta: [
       { title: "Bag — No Location Found" },
-      { name: "description", content: "Your off-grid acquisition queue." },
-      { property: "og:title", content: "Bag — No Location Found" },
-      { property: "og:description", content: "Your off-grid acquisition queue." },
+      { name: "description", content: "Your bag at No Location Found. Encrypted checkout, untracked shipping." },
     ],
   }),
-  component: BagPage,
 });
 
 function BagPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="bg-white text-black min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-[1400px] px-6 py-20">
-        <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          [INDEX 03] — Bag
-        </div>
-        <h1 className="mt-4 text-5xl md:text-7xl tracking-[-0.03em]">Acquisition queue.</h1>
 
-        <div className="mt-16 border-y hairline">
-          <div className="grid gap-px bg-border">
-            <div className="bg-background px-8 py-20 text-center">
-              <div className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent ping-dot" />
-                BAG · EMPTY · 0 ITEMS
-              </div>
-              <p className="mt-6 text-muted-foreground max-w-md mx-auto">
-                Nothing in the queue. Return to the capsule to acquire pieces from FW26 Drop 01.
-              </p>
-              <Link
-                to="/"
-                className="mt-8 inline-flex items-center gap-3 border hairline px-6 py-3 font-mono text-[10px] uppercase tracking-[0.28em] hover:bg-primary hover:text-primary-foreground hover:border-primary transition"
-              >
-                ← Back to Capsule
-              </Link>
-            </div>
+      <main className="pt-32 pb-24 px-6 md:px-12 max-w-[1400px] mx-auto">
+        <div className="flex justify-between items-end mb-16 border-b border-[#E5E5E5] pb-8">
+          <div>
+            <span className="font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em] block mb-2">
+              Checkpoint · 03
+            </span>
+            <h1 className="font-display text-5xl md:text-7xl tracking-tight">YOUR BAG</h1>
           </div>
+          <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#808080]">[ 0 ITEMS ]</span>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-px bg-border border hairline">
-          {[
-            ["Subtotal", "$0.00"],
-            ["Shipping", "—"],
-            ["Tax", "—"],
-            ["Total", "$0.00"],
-          ].map(([k, v]) => (
-            <div key={k} className="bg-background p-6">
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-                {k}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 border border-[#E5E5E5] p-12 flex flex-col items-center justify-center text-center min-h-[400px]">
+            <span className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] mb-4">SIGNAL · EMPTY</span>
+            <h2 className="font-display text-4xl tracking-[0.06em] mb-4">NO COORDINATES STORED</h2>
+            <p className="font-body text-[#808080] max-w-md mb-8">
+              You haven't picked up any pieces yet. The FW26 capsule is four items deep — each engineered to drop your signal.
+            </p>
+            <Link
+              to="/"
+              className="bg-black text-white font-display text-xl tracking-[0.18em] px-8 py-4 hover:bg-[#C9A87C] transition-colors duration-300"
+            >
+              ENTER THE CAPSULE
+            </Link>
+          </div>
+
+          <aside className="border border-[#E5E5E5] p-8 h-fit">
+            <h3 className="font-display text-2xl tracking-[0.18em] mb-6">SUMMARY</h3>
+            <dl className="space-y-4 font-mono text-xs uppercase tracking-widest">
+              {[
+                ["Subtotal", "$0.00"],
+                ["Shipping", "—"],
+                ["Tax", "—"],
+              ].map(([k, v]) => (
+                <div key={k} className="flex justify-between text-[#808080]">
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+              <div className="flex justify-between border-t border-[#E5E5E5] pt-4 text-black">
+                <dt className="font-display text-lg tracking-[0.18em]">TOTAL</dt>
+                <dd className="font-mono text-sm font-bold">$0.00</dd>
               </div>
-              <div className="mt-2 text-xl tracking-tight">{v}</div>
-            </div>
-          ))}
+            </dl>
+            <button
+              disabled
+              className="mt-8 w-full bg-[#F5F5F5] text-[#808080] font-display text-xl tracking-[0.18em] py-4 cursor-not-allowed"
+            >
+              CHECKOUT
+            </button>
+            <p className="mt-4 font-mono text-[10px] text-[#808080] uppercase tracking-widest text-center">
+              Add a piece to continue
+            </p>
+          </aside>
         </div>
-      </section>
+      </main>
+
       <SiteFooter />
     </div>
   );
