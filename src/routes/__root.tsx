@@ -14,17 +14,17 @@ function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <h1 className="font-display text-7xl tracking-widest text-foreground">404</h1>
+        <h2 className="mt-4 font-display text-xl tracking-widest text-foreground">SIGNAL LOST</h2>
+        <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          No coordinates match this URL.
         </p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-foreground px-5 py-3 font-display text-lg tracking-widest text-background hover:bg-accent transition-colors"
           >
-            Go home
+            Return to Base
           </Link>
         </div>
       </div>
@@ -39,11 +39,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+        <h1 className="font-display text-xl tracking-widest text-foreground">
+          TRANSMISSION FAILED
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <p className="mt-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          Something dropped on our end. Try again or head home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -51,13 +51,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-foreground px-5 py-3 font-display text-lg tracking-widest text-background hover:bg-accent transition-colors"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center border border-foreground/30 bg-background px-5 py-3 font-display text-lg tracking-widest text-foreground hover:border-accent hover:text-accent transition-colors"
           >
             Go home
           </a>
@@ -85,6 +85,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap",
       },
     ],
   }),
