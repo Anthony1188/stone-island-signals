@@ -5,10 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -28,46 +28,46 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-obsidian: var(--obsidian);
+  --color-ink: var(--ink);
   --color-bone: var(--bone);
-  --color-artichoke: var(--artichoke);
-  --color-ping: var(--ping);
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-  --font-display: "Inter", ui-sans-serif, system-ui;
+  --color-graphite: var(--graphite);
+  --color-beige: var(--beige);
+  --color-fog: var(--fog);
+  --color-ash: var(--ash);
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Bebas Neue", "Oswald", ui-sans-serif, system-ui;
+  --font-body: "Oswald", ui-sans-serif, system-ui;
 }
 
 :root {
-  --radius: 0.125rem;
+  --radius: 0px;
 
-  --obsidian: oklch(0.14 0.005 240);
-  --bone: oklch(0.92 0.008 90);
-  --artichoke: oklch(0.62 0.05 125);
-  --ping: oklch(0.78 0.16 135);
+  --ink: #000000;
+  --bone: #ffffff;
+  --graphite: #2c2c2c;
+  --beige: #c9a87c;
+  --fog: #f5f5f5;
+  --ash: #808080;
 
-  --background: var(--obsidian);
-  --foreground: var(--bone);
-  --card: oklch(0.18 0.006 240);
-  --card-foreground: var(--bone);
-  --popover: var(--obsidian);
-  --popover-foreground: var(--bone);
-  --primary: var(--artichoke);
-  --primary-foreground: var(--obsidian);
-  --secondary: oklch(0.22 0.006 240);
-  --secondary-foreground: var(--bone);
-  --muted: oklch(0.22 0.006 240);
-  --muted-foreground: oklch(0.6 0.01 240);
-  --accent: var(--ping);
-  --accent-foreground: var(--obsidian);
+  --background: var(--bone);
+  --foreground: var(--ink);
+  --card: var(--bone);
+  --card-foreground: var(--ink);
+  --popover: var(--bone);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--bone);
+  --secondary: var(--fog);
+  --secondary-foreground: var(--ink);
+  --muted: var(--fog);
+  --muted-foreground: var(--ash);
+  --accent: var(--beige);
+  --accent-foreground: var(--ink);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: var(--bone);
-  --border: oklch(0.28 0.008 240);
-  --input: oklch(0.22 0.006 240);
-  --ring: var(--artichoke);
-}
-
-.dark {
-  --background: var(--obsidian);
-  --foreground: var(--bone);
+  --border: #e5e5e5;
+  --input: var(--fog);
+  --ring: var(--beige);
 }
 
 @layer base {
@@ -77,27 +77,33 @@
   html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-display);
+    font-family: var(--font-body);
+    font-weight: 300;
     -webkit-font-smoothing: antialiased;
   }
+  ::selection { background: var(--beige); color: #fff; }
   .font-mono { font-family: var(--font-mono); }
+  .font-display { font-family: var(--font-display); letter-spacing: 0.02em; }
+  .font-body { font-family: var(--font-body); }
 }
 
 @layer utilities {
-  .grid-lines {
-    background-image:
-      linear-gradient(to right, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in oklab, var(--border) 60%, transparent) 1px, transparent 1px);
-    background-size: 64px 64px;
+  .stroke-text {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.85);
   }
-  .hairline { border-color: color-mix(in oklab, var(--bone) 14%, transparent); }
-  .ping-dot {
-    box-shadow: 0 0 0 0 color-mix(in oklab, var(--ping) 70%, transparent);
-    animation: ping-pulse 2s ease-out infinite;
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @keyframes nlf-slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
   }
-  @keyframes ping-pulse {
-    0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--ping) 70%, transparent); }
-    70% { box-shadow: 0 0 0 12px transparent; }
-    100% { box-shadow: 0 0 0 0 transparent; }
+  .animate-marquee { animation: nlf-slide 28s linear infinite; }
+
+  @keyframes nlf-fade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
+  .animate-fade-in { animation: nlf-fade 0.9s ease-out forwards; }
 }

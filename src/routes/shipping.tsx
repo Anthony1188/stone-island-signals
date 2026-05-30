@@ -2,70 +2,102 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader, SiteFooter } from "@/components/site-chrome";
 
 export const Route = createFileRoute("/shipping")({
+  component: ShippingPage,
   head: () => ({
     meta: [
       { title: "Shipping Protocol — No Location Found" },
-      { name: "description", content: "Logistics, lead times, and delivery protocol for the NLF FW26 capsule." },
-      { property: "og:title", content: "Shipping Protocol — No Location Found" },
-      { property: "og:description", content: "Logistics, lead times, and delivery protocol for the NLF FW26 capsule." },
+      { name: "description", content: "Untracked, encrypted, off-grid delivery. NLF shipping protocol and drop-point network." },
     ],
   }),
-  component: ShippingPage,
 });
 
-const ROWS: { code: string; zone: string; window: string; carrier: string; note: string }[] = [
-  { code: "ZN-01", zone: "Domestic · US", window: "3–5 days", carrier: "Ground · Discreet", note: "Tracking provided via burner link." },
-  { code: "ZN-02", zone: "Canada / Mexico", window: "5–8 days", carrier: "Cross-border · Standard", note: "Duties calculated at handoff." },
-  { code: "ZN-03", zone: "EU + UK", window: "6–9 days", carrier: "Air · Untracked options", note: "Faraday-safe packaging on request." },
-  { code: "ZN-04", zone: "Worldwide", window: "8–14 days", carrier: "Air · Coordinates flexible", note: "Drop-point delivery available." },
+const ZONES = [
+  { code: "ZN-01", region: "Domestic · Continental", window: "3–5 days", method: "Drop-point or doorstep", price: "$12" },
+  { code: "ZN-02", region: "Europe · UK", window: "5–8 days", method: "Encrypted courier", price: "$28" },
+  { code: "ZN-03", region: "Pacific · Asia", window: "7–11 days", method: "Field-bag transit", price: "$36" },
+  { code: "ZN-04", region: "Remainder · Worldwide", window: "10–18 days", method: "Off-grid forward", price: "$48" },
 ];
 
 function ShippingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="bg-white text-black min-h-screen">
       <SiteHeader />
-      <section className="mx-auto max-w-[1400px] px-6 py-20">
-        <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
-          [INDEX 02] — Logistics
-        </div>
-        <h1 className="mt-4 text-5xl md:text-7xl tracking-[-0.03em]">Shipping protocol.</h1>
-        <p className="mt-6 max-w-2xl text-muted-foreground">
-          Every piece ships in opaque, signal-resistant packaging. No branding on the exterior, no
-          itemized invoice on the label. Your address stays with the carrier — never the network.
-        </p>
 
-        <div className="mt-14 border hairline">
-          <div className="grid grid-cols-12 gap-px bg-border font-mono text-[10px] uppercase tracking-[0.28em]">
-            <div className="col-span-2 bg-background px-5 py-4 text-muted-foreground">Code</div>
-            <div className="col-span-3 bg-background px-5 py-4 text-muted-foreground">Zone</div>
-            <div className="col-span-2 bg-background px-5 py-4 text-muted-foreground">Window</div>
-            <div className="col-span-2 bg-background px-5 py-4 text-muted-foreground">Carrier</div>
-            <div className="col-span-3 bg-background px-5 py-4 text-muted-foreground">Note</div>
-            {ROWS.map((r) => (
-              <div key={r.code} className="contents">
-                <div className="col-span-2 bg-background px-5 py-5 text-foreground">{r.code}</div>
-                <div className="col-span-3 bg-background px-5 py-5 text-foreground normal-case tracking-normal text-sm font-display">{r.zone}</div>
-                <div className="col-span-2 bg-background px-5 py-5 text-foreground">{r.window}</div>
-                <div className="col-span-2 bg-background px-5 py-5 text-muted-foreground">{r.carrier}</div>
-                <div className="col-span-3 bg-background px-5 py-5 text-muted-foreground normal-case tracking-normal text-sm font-display">{r.note}</div>
+      <main>
+        {/* Header band */}
+        <section className="bg-black text-white pt-40 pb-24 px-6 md:px-12">
+          <div className="max-w-[1400px] mx-auto">
+            <span className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] block mb-6">
+              Logistics · Protocol 02
+            </span>
+            <h1 className="font-display text-6xl md:text-8xl leading-[0.9] tracking-tight">
+              SHIPPING
+              <br />
+              <span className="stroke-text">PROTOCOL</span>
+            </h1>
+            <p className="font-body font-light text-lg text-[#E5E5E5] mt-8 max-w-2xl">
+              Every parcel ships untracked by carrier marketing pixels and is routed through anonymized drop points. Coordinates are stripped from invoices.
+            </p>
+          </div>
+        </section>
+
+        {/* Zone table */}
+        <section className="py-24 px-6 md:px-12 max-w-[1400px] mx-auto">
+          <div className="flex justify-between items-end mb-12 border-b border-[#E5E5E5] pb-6">
+            <h2 className="font-display text-3xl md:text-4xl tracking-tight">TRANSIT ZONES</h2>
+            <span className="font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em]">[ 04 LANES ]</span>
+          </div>
+
+          <div className="border-t border-[#E5E5E5]">
+            {ZONES.map((z) => (
+              <div
+                key={z.code}
+                className="grid grid-cols-12 gap-4 py-6 border-b border-[#E5E5E5] items-center hover:bg-[#F5F5F5] transition-colors"
+              >
+                <div className="col-span-12 md:col-span-2 font-mono text-xs text-[#C9A87C] uppercase tracking-[0.28em]">
+                  {z.code}
+                </div>
+                <div className="col-span-12 md:col-span-4 font-display text-xl tracking-[0.06em]">{z.region}</div>
+                <div className="col-span-6 md:col-span-2 font-body text-sm text-[#808080]">{z.window}</div>
+                <div className="col-span-6 md:col-span-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[#808080]">
+                  {z.method}
+                </div>
+                <div className="col-span-12 md:col-span-1 text-right font-mono text-sm font-bold">{z.price}</div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        <div className="mt-12 grid gap-px bg-border md:grid-cols-3 border hairline">
-          {[
-            ["Returns", "14 days. Untouched. Packaging intact."],
-            ["Faraday Option", "+$12 — Signal-blocking inner sleeve."],
-            ["Drop-Point", "Available worldwide on request."],
-          ].map(([k, v]) => (
-            <div key={k} className="bg-background p-6">
-              <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">{k}</div>
-              <div className="mt-3 text-base">{v}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* Policy cards */}
+        <section className="bg-[#F5F5F5] py-24 px-6 md:px-12">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                tag: "◇ Returns",
+                title: "14-DAY RECALL",
+                body: "Unworn pieces with tags intact may be returned within 14 days of receipt. Returns ship through the same encrypted lane they arrived on.",
+              },
+              {
+                tag: "◇ Faraday",
+                title: "CARE WITH FARADAY LININGS",
+                body: "Cold hand wash. Do not iron Faraday-lined panels. Air dry away from direct signal sources. Liner remains active for 3+ years of standard wear.",
+              },
+              {
+                tag: "◇ Drop-Points",
+                title: "ANONYMIZED PICKUP",
+                body: "Choose any drop-point in the NLF network at checkout. ID is never recorded — pickup is verified by single-use code transmitted at dispatch.",
+              },
+            ].map((c) => (
+              <article key={c.title} className="bg-white border border-[#E5E5E5] p-8 hover:border-black transition-colors">
+                <span className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] block mb-6">{c.tag}</span>
+                <h3 className="font-display text-2xl tracking-[0.06em] mb-4">{c.title}</h3>
+                <p className="font-body text-sm text-[#808080] leading-relaxed">{c.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      </main>
+
       <SiteFooter />
     </div>
   );
