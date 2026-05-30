@@ -2,57 +2,92 @@ import { Link } from "@tanstack/react-router";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b hairline bg-background/85 backdrop-blur">
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-3">
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent ping-dot" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-foreground">
-            No Location Found
-          </span>
+    <nav className="fixed top-0 w-full z-50 mix-blend-difference text-white px-6 py-6">
+      <div className="flex items-center justify-between max-w-[1600px] mx-auto">
+        <div className="flex items-center gap-6">
+          <button className="group flex items-center gap-2 hover:opacity-70 transition-opacity" aria-label="Menu">
+            <div className="flex flex-col gap-1.5">
+              <span className="w-6 h-px bg-white group-hover:w-8 transition-all duration-300" />
+              <span className="w-6 h-px bg-white group-hover:w-4 transition-all duration-300" />
+            </div>
+          </button>
+          <button className="hidden md:flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity font-mono text-[10px] uppercase tracking-[0.28em]">
+            Search
+          </button>
+        </div>
+
+        <Link to="/" className="absolute left-1/2 -translate-x-1/2 group">
+          <h1 className="font-display text-3xl md:text-4xl tracking-[0.18em] group-hover:tracking-[0.24em] transition-all duration-500">
+            NO LOCATION FOUND
+          </h1>
         </Link>
-        <nav className="hidden items-center gap-8 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground md:flex">
-          <Link to="/" className="hover:text-foreground transition">[01] Capsule</Link>
-          <Link to="/shipping" className="hover:text-foreground transition">[02] Shipping</Link>
-          <Link to="/bag" className="hover:text-foreground transition">[03] Bag</Link>
-        </nav>
-        <div className="flex items-center gap-4">
-          <span className="hidden font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground sm:inline">
-            SIG · WEAK
-          </span>
-          <Link
-            to="/bag"
-            className="border hairline px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.28em] text-foreground hover:bg-foreground hover:text-background transition"
-          >
-            Bag (0)
+
+        <div className="flex items-center gap-6">
+          <Link to="/shipping" className="hidden md:block font-mono text-[10px] uppercase tracking-[0.28em] opacity-70 hover:opacity-100 transition-opacity">
+            Shipping
+          </Link>
+          <Link to="/bag" className="flex items-center gap-2 group">
+            <span className="font-mono text-[10px] opacity-70 group-hover:opacity-100 hidden md:block">[0]</span>
+            <span className="font-display text-xl tracking-[0.18em] group-hover:text-[#C9A87C] transition-colors">BAG</span>
           </Link>
         </div>
       </div>
-    </header>
+    </nav>
   );
 }
 
 export function SiteFooter() {
   return (
-    <footer className="border-t hairline mt-32">
-      <div className="mx-auto max-w-[1400px] px-6 py-12 grid gap-10 md:grid-cols-4 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-        <div>
-          <div className="text-foreground mb-3">NLF / FW26</div>
-          <div>Off-grid garments.<br/>Manufactured in undisclosed coordinates.</div>
+    <footer className="bg-black text-white pt-24 pb-12 border-t border-white/10">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-24">
+          <div>
+            <h2 className="font-display text-4xl md:text-5xl tracking-[0.18em] mb-6">NLF</h2>
+            <p className="font-body text-sm text-[#808080] font-light max-w-xs">
+              No Location Found. Off-grid garments.<br/>
+              Manufactured at undisclosed coordinates. Shipped worldwide.
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] mb-6">Capsule</h4>
+            <ul className="flex flex-col gap-3 font-body text-sm font-light text-[#E5E5E5]">
+              <li><Link to="/" className="hover:text-white hover:underline underline-offset-4 transition-all">FW26 Index</Link></li>
+              <li><Link to="/" className="hover:text-white hover:underline underline-offset-4 transition-all">All Pieces</Link></li>
+              <li><Link to="/shipping" className="hover:text-white hover:underline underline-offset-4 transition-all">Drop-Point Map</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] mb-6">Logistics</h4>
+            <ul className="flex flex-col gap-3 font-body text-sm font-light text-[#E5E5E5]">
+              <li><Link to="/shipping" className="hover:text-white hover:underline underline-offset-4 transition-all">Shipping Protocol</Link></li>
+              <li><Link to="/shipping" className="hover:text-white hover:underline underline-offset-4 transition-all">Returns</Link></li>
+              <li><Link to="/shipping" className="hover:text-white hover:underline underline-offset-4 transition-all">Faraday Care</Link></li>
+              <li><a href="mailto:signal@nolocationfound.xyz" className="hover:text-white hover:underline underline-offset-4 transition-all">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="font-mono text-[10px] text-[#C9A87C] uppercase tracking-[0.28em] mb-6">Channel</h4>
+            <div className="flex gap-4">
+              {["IG", "TG", "RS"].map((t) => (
+                <a key={t} href="#" className="w-10 h-10 border border-white/20 flex items-center justify-center font-mono text-[10px] tracking-widest hover:bg-white hover:text-black transition-colors">
+                  {t}
+                </a>
+              ))}
+            </div>
+            <p className="mt-6 font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em]">
+              signal@nolocationfound.xyz
+            </p>
+          </div>
         </div>
-        <div>
-          <div className="text-foreground mb-3">[A] Capsule</div>
-          <Link to="/" className="block hover:text-foreground">Index</Link>
-          <Link to="/shipping" className="block hover:text-foreground">Logistics</Link>
-        </div>
-        <div>
-          <div className="text-foreground mb-3">[B] Contact</div>
-          <div>signal@nolocationfound.xyz</div>
-        </div>
-        <div className="md:text-right">
-          <div className="text-foreground mb-3">[C] Status</div>
-          <div className="inline-flex items-center gap-2">
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent ping-dot" />
-            Network · Down
+
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10">
+          <p className="font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em]">© 2026 No Location Found. All coordinates withheld.</p>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <a href="#" className="font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em] hover:text-white">Privacy</a>
+            <a href="#" className="font-mono text-[10px] text-[#808080] uppercase tracking-[0.28em] hover:text-white">Terms</a>
           </div>
         </div>
       </div>
